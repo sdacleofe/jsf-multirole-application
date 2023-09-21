@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+	<title>Dashboard</title>
+	<!-- Session Timeout -->
+	<meta http-equiv="refresh" content="#{session.maxInactiveInterval};url=#{request.contextPath}/login.xhtml" />
+
+	<!-- Bootstrap CDN Link/s -->
+	<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+		rel="stylesheet"
+		integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+		crossorigin="anonymous" />
+
+	<link rel="stylesheet"
+		href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+
+	<!-- Internal CSS Style -->
+	<style>
+		body {
+			background-color: #BBC9E0;
+			background-image:
+				url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 1200 800'%3E%3Cdefs%3E%3CradialGradient id='a' cx='0' cy='800' r='800' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23bcd7ed'/%3E%3Cstop offset='1' stop-color='%23bcd7ed' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='b' cx='1200' cy='800' r='800' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23dce2ed'/%3E%3Cstop offset='1' stop-color='%23dce2ed' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='c' cx='600' cy='0' r='600' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23ddeff9'/%3E%3Cstop offset='1' stop-color='%23ddeff9' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='d' cx='600' cy='800' r='600' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23BBC9E0'/%3E%3Cstop offset='1' stop-color='%23BBC9E0' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='e' cx='0' cy='0' r='800' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23BCE5F9'/%3E%3Cstop offset='1' stop-color='%23BCE5F9' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='f' cx='1200' cy='0' r='800' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23F9F9F9'/%3E%3Cstop offset='1' stop-color='%23F9F9F9' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect fill='url(%23a)' width='1200' height='800'/%3E%3Crect fill='url(%23b)' width='1200' height='800'/%3E%3Crect fill='url(%23c)' width='1200' height='800'/%3E%3Crect fill='url(%23d)' width='1200' height='800'/%3E%3Crect fill='url(%23e)' width='1200' height='800'/%3E%3Crect fill='url(%23f)' width='1200' height='800'/%3E%3C/svg%3E");
+			background-attachment: fixed;
+			background-size: cover;
+			background-image:
+				url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 1200 800'%3E%3Cdefs%3E%3CradialGradient id='a' cx='0' cy='800' r='800' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23bcd7ed'/%3E%3Cstop offset='1' stop-color='%23bcd7ed' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='b' cx='1200' cy='800' r='800' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23dce2ed'/%3E%3Cstop offset='1' stop-color='%23dce2ed' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='c' cx='600' cy='0' r='600' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23ddeff9'/%3E%3Cstop offset='1' stop-color='%23ddeff9' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='d' cx='600' cy='800' r='600' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23BBC9E0'/%3E%3Cstop offset='1' stop-color='%23BBC9E0' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='e' cx='0' cy='0' r='800' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23BCE5F9'/%3E%3Cstop offset='1' stop-color='%23BCE5F9' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='f' cx='1200' cy='0' r='800' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23F9F9F9'/%3E%3Cstop offset='1' stop-color='%23F9F9F9' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect fill='url(%23a)' width='1200' height='800'/%3E%3Crect fill='url(%23b)' width='1200' height='800'/%3E%3Crect fill='url(%23c)' width='1200' height='800'/%3E%3Crect fill='url(%23d)' width='1200' height='800'/%3E%3Crect fill='url(%23e)' width='1200' height='800'/%3E%3Crect fill='url(%23f)' width='1200' height='800'/%3E%3C/svg%3E");
+		}
+		
+		img {
+			max-width: 100%;
+			max-height: 100%;
+			width: 40px;
+		}
+		 
+		.ui-panelgrid td {
+			border: none !important;
+		}
+		
+		.ui-button:hover {
+			background-color: #ffc107 !important;
+		}
+	</style>
+</h:head>
+
+<h:body>
+	<h:form>
+		<div class="container-fluid p-0">
+			<div class="row align-items-center p-5 mx-5 dashboard-header">
+				<div class="col-6">
+					<p class=" h6 text-primary text-uppercase">
+						<img class="logo" src="https://i.ibb.co/McRnRyG/logo.png" /> multirole dashboard
+					</p>
+				</div>
+				<div class="col-6 align-items-center">
+					<ul class="nav justify-content-end">
+						<li class="nav-item"><p:commandLink
+								action="#{userBean.activityActionProcess}"
+								class="btn border-0 dashboard-header-button">
+								<i class="bi bi-card-list"></i> 
+									Activity
+								</p:commandLink></li>
+						<li class="nav-item dropdown"><p:commandLink
+								action="#{userBean.logout}" class="btn border-0">
+								<i class="bi bi-person-fill"></i> 
+									Log out
+								</p:commandLink></li>
+					</ul>
+				</div>
+			</div>
+			<div class="container-fluid ">
+				<div class="row mx-5 ">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-lg"></div>
+							<div class="col-lg-6">
+								<div class="card mx-5 my-4">
+									<div class="card-body p-5">
+										<h5 class="card-title text-center">Profile Information</h5>
+										<div class="row">
+											<div class="col">
+												<p class="my-2">First Name</p>
+												<p:inputText value="#{userBean.firstName}"
+													class="container text-capitalize" />
+											</div>
+											<div class="col">
+												<p class="my-2">Last Name</p>
+												<p:inputText value="#{userBean.lastName}"
+													class="container text-capitalize" />
+											</div>
+										</div>
+										<div class="row">
+											<div class="col">
+												<p class="my-2">Email Address</p>
+												<p:inputText value="#{userBean.emailAddress}"
+													class="container" />
+											</div>
+											<div class="col">
+												<p class="my-2">User Role</p>
+												<p:inputText value="#{userBean.userRole}"
+													class="container text-capitalize" disabled="true" />
+											</div>
+										</div>
+										<div class="row">
+											<div class="col ">
+												<p:commandButton action="#{userBean.updateUserRecord}"
+													value="Update" class="bg-dark container mt-3" disabled="#{userBean.disabledUpdateButton}"></p:commandButton>
+											</div>
+										</div>
+										<h:messages id="messages" showDetail="true" class="my-2"
+											style="color: #04AA6D;list-style: none; text-align:center;  border-radius: 5px 5px;">
+											<p:autoUpdate />
+										</h:messages>
+									</div>
+								</div>
+								<div class=" m-5 border-0">
+									<div class="row ">
+										<div class="col-lg-4 my-2">
+											<p:commandButton value="Admin" class="container"
+												disabled="#{userBean.disabledAdmin}"
+												action="#{userBean.adminActionProcess}" />
+										</div>
+										<div class="col-lg-4 my-2">
+											<p:commandButton value="Regular" class="container"
+												disabled="#{userBean.disabledRegular}"
+												action="#{userBean.regularActionProcess}" />
+										</div>
+										<div class="col-lg-4 my-2">
+											<p:commandButton value="Read Only" class="container"
+												disabled="#{userBean.disabledReadOnly}"
+												action="#{userBean.readOnlyActionProcess}" />
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</h:form>
+</h:body>
+</html>

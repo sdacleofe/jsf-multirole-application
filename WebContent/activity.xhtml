@@ -1,0 +1,127 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Activity</title>
+	<!-- Session Timeout -->
+	<meta http-equiv="refresh" content="#{session.maxInactiveInterval};url=#{request.contextPath}/login.xhtml" />
+
+	<!-- Bootstrap CDN Link/s -->
+	<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+		rel="stylesheet"
+		integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+		crossorigin="anonymous" />
+
+	<link rel="stylesheet"
+		href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+
+	<!-- Internal CSS Style -->
+	<style>
+		body {
+			background-color: #BBC9E0;
+			background-image:
+				url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 1200 800'%3E%3Cdefs%3E%3CradialGradient id='a' cx='0' cy='800' r='800' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23bcd7ed'/%3E%3Cstop offset='1' stop-color='%23bcd7ed' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='b' cx='1200' cy='800' r='800' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23dce2ed'/%3E%3Cstop offset='1' stop-color='%23dce2ed' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='c' cx='600' cy='0' r='600' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23ddeff9'/%3E%3Cstop offset='1' stop-color='%23ddeff9' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='d' cx='600' cy='800' r='600' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23BBC9E0'/%3E%3Cstop offset='1' stop-color='%23BBC9E0' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='e' cx='0' cy='0' r='800' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23BCE5F9'/%3E%3Cstop offset='1' stop-color='%23BCE5F9' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='f' cx='1200' cy='0' r='800' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23F9F9F9'/%3E%3Cstop offset='1' stop-color='%23F9F9F9' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect fill='url(%23a)' width='1200' height='800'/%3E%3Crect fill='url(%23b)' width='1200' height='800'/%3E%3Crect fill='url(%23c)' width='1200' height='800'/%3E%3Crect fill='url(%23d)' width='1200' height='800'/%3E%3Crect fill='url(%23e)' width='1200' height='800'/%3E%3Crect fill='url(%23f)' width='1200' height='800'/%3E%3C/svg%3E");
+			background-attachment: fixed;
+			background-size: cover;
+			}
+		img.logo {
+			max-width: 100%;
+			max-height: 100%;
+			width: 40px;
+		}
+		.ui-panelgrid td {
+			border: none !important;
+		}
+		.ui-button:hover {
+			background-color: #ffc107 !important;
+		}
+	</style>
+</h:head>
+
+<h:body>
+	<h:form>
+		<div class="container-fluid p-0">
+			<div class="row align-items-center p-5 mx-5 dashboard-header">
+				<div class="col-3">
+					<p class=" h6 text-primary text-uppercase">
+						<img class="logo" src="https://i.ibb.co/McRnRyG/logo.png" /> multirole dashboard
+					</p>
+				</div>
+				<div class="col-9 align-items-center">
+					<ul class="nav justify-content-end mt-3">
+						<li class="nav-item"><p:commandLink action="#{userBean.homeActionProcess}" class="btn border-0 dashboard-header-button">
+							<i class="bi bi-house-door-fill"></i> Home</p:commandLink>
+						</li>
+						<li class="nav-item dropdown"><p:commandLink action="#{userBean.clearLog}" class="btn border-0" disabled="#{userBean.disabledClearLogButton}">
+							<i class="bi bi-trash3-fill"></i> Clear Log</p:commandLink>
+						</li>
+						<li class="nav-item dropdown"><p:commandLink action="#{userBean.logout}" class="btn border-0">
+							<i class="bi bi-person-fill"></i> Log out</p:commandLink>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="container-fluid ">
+				<div class="row mx-5 ">
+					<div class="col"></div>
+					<div class="col-8">
+						<p:dataTable var="logger" value="#{userBean.logList()}" rows="10"
+							paginator="true" paginatorPosition="bottom"
+							paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+							rowsPerPageTemplate="5,10,{ShowAll|'All'}">>
+							<p:column>
+								<f:facet name="header">
+									<h:commandLink id="sortLogID"
+										actionListener="#{userBean.processAction}">
+										Log ID
+										<i class="pi pi-sort"></i>
+									</h:commandLink>
+
+								</f:facet> 
+								<h:outputText value="#{logger.logID}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:commandLink id="sortLogCreated"
+										actionListener="#{userBean.processAction}">
+										Date Created
+										<i class="pi pi-sort"></i>
+									</h:commandLink>
+								</f:facet>
+								<h:outputText value="#{logger.logCreated}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:commandLink id="sortRole"
+										actionListener="#{userBean.processAction}">
+										Role
+										<i class="pi pi-sort"></i>
+									</h:commandLink>
+								</f:facet>
+								<h:outputText value="#{logger.logRole}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:commandLink id="sortMessage"
+										actionListener="#{userBean.processAction}">
+										Message
+										<i class="pi pi-sort"></i>
+									</h:commandLink>
+								</f:facet>
+								<h:outputText value="#{logger.logMessage}" />
+							</p:column>
+						</p:dataTable>
+					</div>
+					<div class="col"></div>
+				</div>
+			</div>
+		</div>
+	</h:form>
+</h:body>
+</html>
